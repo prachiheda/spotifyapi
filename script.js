@@ -4,7 +4,7 @@
 const APIController = (function() {
     
     const clientId = '5e1f734c35e6497eb9cfed64c4b18538';
-    const clientSecret = '12957dfa97854c44b1c9deae2e10a037';
+    const clientSecret = 'xxxx';
 
     // private methods
     const _getToken = async () => {
@@ -54,9 +54,7 @@ const APIController = (function() {
         });
 
         const data = await result.json();
-        const track = data.items.track; // Accessing the first track object in the playlist
-        const trackPopularity = track.popularity;
-        return trackPopularity
+        return data.items; 
     }
 
     // const _getTracks = async (token, tracksEndPoint) => {
@@ -133,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // var playlistPop = totalScore/totalTracks; 
         // //const statement = `Your playlists popularity score: ${playlistPop}`;
         resultElement.textContent = songs;
-        console.log(typeof songs)
+        console.log(songs)
     
         
         
