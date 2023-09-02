@@ -4,7 +4,7 @@
 const APIController = (function() {
     
     const clientId = '5e1f734c35e6497eb9cfed64c4b18538';
-    const clientSecret = 'xxxx';
+    const clientSecret = '12957dfa97854c44b1c9deae2e10a037';
 
     // private methods
     const _getToken = async () => {
@@ -54,7 +54,7 @@ const APIController = (function() {
         });
 
         const data = await result.json();
-        return data.items; 
+        return data; 
     }
 
     // const _getTracks = async (token, tracksEndPoint) => {
@@ -119,22 +119,20 @@ document.addEventListener("DOMContentLoaded", function () {
     // Function to process the input value
     async function getPlaylistScore(value) {
         const token = await APIController.getToken();
-        const songs = await APIController.getPlaylist(token, value);
-        // resultElement.innerHTML = '';
-        // var totalScore = 0; 
-        // var totalTracks = 0; 
-        // songs.forEach(song=> {
-        //     const trackPop = song.track.popularity;
-        //     totalScore += trackPop;
-        //     totalTracks ++; 
-        // })
-        // var playlistPop = totalScore/totalTracks; 
-        // //const statement = `Your playlists popularity score: ${playlistPop}`;
-        resultElement.textContent = songs;
-        console.log(songs)
-    
+        const data = await APIController.getPlaylist(token, value);
+        resultElement.innerHTML = '';
+        var totalScore = 0; 
+        var totalTracks = 0; 
+        data.tracks.items.forEach(track=> {
+            totalScore += track.track.popularity;
+            totalTracks++; 
+            console.log(track); 
+        })
+        var playlistPop = totalScore/totalTracks; 
+        resultElement.textContent = `Your playlists popularity score: ${playlistPop}`;
         
-        
+
 
     }
 });
+
