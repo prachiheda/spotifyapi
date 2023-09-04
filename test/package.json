@@ -1,0 +1,11 @@
+{
+  "name": "basic-or-bizarre",
+  "version": "1.0.0",
+  "description": "how unique is ur music taste",
+  "main": "auth.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Prachi Heda",
+  "license": "ISC"
+}

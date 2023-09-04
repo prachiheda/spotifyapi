@@ -52,7 +52,7 @@ function authorize() {
 
 
     const clientId = 'beaa990bacba48fb9f2891ceb5599c61';
-    const redirectUri = 'http://localhost:8080';
+    const redirectUri = 'http://localhost:8000';
 
 function redirectToSpotifyAuthorizeEndpoint() {
     const codeVerifier = generateRandomString(64);
@@ -112,9 +112,39 @@ function redirectToSpotifyAuthorizeEndpoint() {
         });
   }
 
+  function refreshToken() {
+    fetch('https://accounts.spotify.com/api/token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+      },
+      body: new URLSearchParams({
+        client_id,
+        grant_type: 'refresh_token',
+        refresh_token,
+      }),
+    })
+    .then(response => {
+        if (!response.ok) {
+          throw new Error('HTTP status ' + response.status);
+        }
+        return response.json();
+      })
+      .then(data => {
+        localStorage.setItem('refresh_token', data.refresh_token);
+        console.log(data.access_token)
+        resultElement.innerHTML = '';
+        resultElement.textContent = `refresh token:`+ localStorage.getItem('code_verifier');
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }
+
   redirectToSpotifyAuthorizeEndpoint(); 
   const urlParams = new URLSearchParams(window.location.search);
   let urlcode = urlParams.get('code');
+  console.log(urlcode); 
   exchangeToken(urlcode); 
 
 }
